@@ -7,20 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29242B832AC6D24100EE927D /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29242B822AC6D24100EE927D /* BlurView.swift */; };
+		29242B852AC6D44F00EE927D /* CustomCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29242B842AC6D44F00EE927D /* CustomCorner.swift */; };
 		296E59D42AC61D9B00EF65BD /* CoolFeaturesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E59D32AC61D9B00EF65BD /* CoolFeaturesApp.swift */; };
 		296E59D62AC61D9B00EF65BD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E59D52AC61D9B00EF65BD /* ContentView.swift */; };
 		296E59D82AC61D9C00EF65BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 296E59D72AC61D9C00EF65BD /* Assets.xcassets */; };
 		296E59DB2AC61D9C00EF65BD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 296E59DA2AC61D9C00EF65BD /* Preview Assets.xcassets */; };
 		296E59E62AC6225200EF65BD /* BottomSheetiOS16.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E59E52AC6225200EF65BD /* BottomSheetiOS16.swift */; };
+		296E59E92AC62EDC00EF65BD /* BottomSheetiOS15.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E59E82AC62EDC00EF65BD /* BottomSheetiOS15.swift */; };
+		296E59EC2AC62FE900EF65BD /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E59EB2AC62FE900EF65BD /* MainButton.swift */; };
+		29997B472AC85D4900F24524 /* SmallContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29997B462AC85D4900F24524 /* SmallContent.swift */; };
+		29997B492AC8650600F24524 /* MediumContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29997B482AC8650600F24524 /* MediumContent.swift */; };
+		29997B4B2AC8673700F24524 /* LargeContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29997B4A2AC8673700F24524 /* LargeContent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		29242B822AC6D24100EE927D /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		29242B842AC6D44F00EE927D /* CustomCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCorner.swift; sourceTree = "<group>"; };
 		296E59D02AC61D9B00EF65BD /* CoolFeatures.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoolFeatures.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		296E59D32AC61D9B00EF65BD /* CoolFeaturesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolFeaturesApp.swift; sourceTree = "<group>"; };
 		296E59D52AC61D9B00EF65BD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		296E59D72AC61D9C00EF65BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		296E59DA2AC61D9C00EF65BD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		296E59E52AC6225200EF65BD /* BottomSheetiOS16.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetiOS16.swift; sourceTree = "<group>"; };
+		296E59E82AC62EDC00EF65BD /* BottomSheetiOS15.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetiOS15.swift; sourceTree = "<group>"; };
+		296E59EB2AC62FE900EF65BD /* MainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
+		29997B462AC85D4900F24524 /* SmallContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallContent.swift; sourceTree = "<group>"; };
+		29997B482AC8650600F24524 /* MediumContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumContent.swift; sourceTree = "<group>"; };
+		29997B4A2AC8673700F24524 /* LargeContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeContent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +67,7 @@
 		296E59D22AC61D9B00EF65BD /* CoolFeatures */ = {
 			isa = PBXGroup;
 			children = (
+				296E59EA2AC62FD300EF65BD /* Views */,
 				296E59D32AC61D9B00EF65BD /* CoolFeaturesApp.swift */,
 				296E59D52AC61D9B00EF65BD /* ContentView.swift */,
 				296E59E12AC61E4300EF65BD /* BottomSheet */,
@@ -73,6 +88,7 @@
 		296E59E12AC61E4300EF65BD /* BottomSheet */ = {
 			isa = PBXGroup;
 			children = (
+				296E59E72AC62EC000EF65BD /* iOS15 */,
 				296E59E42AC6223400EF65BD /* iOS16 */,
 			);
 			path = BottomSheet;
@@ -84,6 +100,27 @@
 				296E59E52AC6225200EF65BD /* BottomSheetiOS16.swift */,
 			);
 			path = iOS16;
+			sourceTree = "<group>";
+		};
+		296E59E72AC62EC000EF65BD /* iOS15 */ = {
+			isa = PBXGroup;
+			children = (
+				296E59E82AC62EDC00EF65BD /* BottomSheetiOS15.swift */,
+				29242B822AC6D24100EE927D /* BlurView.swift */,
+				29242B842AC6D44F00EE927D /* CustomCorner.swift */,
+			);
+			path = iOS15;
+			sourceTree = "<group>";
+		};
+		296E59EA2AC62FD300EF65BD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				296E59EB2AC62FE900EF65BD /* MainButton.swift */,
+				29997B462AC85D4900F24524 /* SmallContent.swift */,
+				29997B482AC8650600F24524 /* MediumContent.swift */,
+				29997B4A2AC8673700F24524 /* LargeContent.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,9 +193,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				296E59E92AC62EDC00EF65BD /* BottomSheetiOS15.swift in Sources */,
+				29997B492AC8650600F24524 /* MediumContent.swift in Sources */,
+				29997B472AC85D4900F24524 /* SmallContent.swift in Sources */,
 				296E59D62AC61D9B00EF65BD /* ContentView.swift in Sources */,
 				296E59D42AC61D9B00EF65BD /* CoolFeaturesApp.swift in Sources */,
+				29997B4B2AC8673700F24524 /* LargeContent.swift in Sources */,
 				296E59E62AC6225200EF65BD /* BottomSheetiOS16.swift in Sources */,
+				29242B852AC6D44F00EE927D /* CustomCorner.swift in Sources */,
+				296E59EC2AC62FE900EF65BD /* MainButton.swift in Sources */,
+				29242B832AC6D24100EE927D /* BlurView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,8 +337,10 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,6 +348,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.torhovenkov.CoolFeatures;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -322,8 +371,10 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -331,6 +382,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.torhovenkov.CoolFeatures;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
