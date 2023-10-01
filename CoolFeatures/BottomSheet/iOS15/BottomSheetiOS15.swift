@@ -32,7 +32,7 @@ extension View {
             self
             
             BottomSheetiOS15(isPresented: isPresented, completion: completion, content: content)
-                
+            
         }
     }
 }
@@ -43,26 +43,41 @@ struct BottomSheetiOS15<Content: View>: View {
         case material(UIBlurEffect.Style), color(Color)
     }
     
-    @State private var sheetHeight: CGFloat = 0
     @Binding var isPresented: Bool
+    
+    @State private var screenHeight: CGFloat = 0
+    @State private var safeAreaSize: CGFloat = 0
     
     var cornerRadius: CGFloat = 20
     var background: Background = .color(.white)
     var completion: () -> () = {}
     let content: () -> Content
     
+    var halfScreen: CGFloat {
+        screenHeight * 0.5
+    }
+    
     var body: some View {
         
         ZStack(alignment: .bottom) {
-                Color.black
-                    .opacity(isPresented ? 0.5 : 0)
-                    .transition(.opacity)
-                    .ignoresSafeArea()
-                    .animation(.default, value: isPresented)
-                    .onTapGesture {
-                        isPresented = false
+            Color.black
+                .opacity(isPresented ? 0.5 : 0)
+                .transition(.opacity)
+                .ignoresSafeArea()
+                .animation(.easeInOut, value: isPresented)
+                .background {
+                    GeometryReader { geo in
+                        Color.clear
+                            .onAppear {
+                                safeAreaSize = geo.safeAreaInsets.bottom
+                                screenHeight = geo.size.height
+                            }
                     }
-                
+                }
+                .onTapGesture {
+                    isPresented = false
+                }
+            
             ZStack {
                 switch background {
                 case .material(let style):
@@ -74,7 +89,6 @@ struct BottomSheetiOS15<Content: View>: View {
                         .cornerRadius(cornerRadius, corners: [.topLeft, .topRight])
                         .ignoresSafeArea()
                         .frame(maxWidth: .infinity)
-                        .frame(height: 400)
                 }
                 
                 Capsule()
@@ -86,18 +100,10 @@ struct BottomSheetiOS15<Content: View>: View {
                 content()
                     .padding(.top, cornerRadius < 15 ? 15 : cornerRadius)
             }
-            .background {
-                GeometryReader { geo in
-                    Color.clear
-                        .onAppear {
-                            sheetHeight = geo.size.height
-                        }
-                }
-            }
             .frame(maxWidth: .infinity)
-            .frame(height: 400)
-            .offset(y: isPresented ? 0 : sheetHeight + 40)
-            .animation(.easeInOut(duration: 0.35), value: isPresented)
+            .frame(height: halfScreen)
+            .offset(y: isPresented ? 0 : halfScreen + safeAreaSize)
+            .animation(.smooth(duration: 0.35), value: isPresented)
         }
         .onChange(of: isPresented) { newValue in
             if !newValue {
