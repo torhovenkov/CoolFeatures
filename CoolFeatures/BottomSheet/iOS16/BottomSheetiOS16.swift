@@ -12,30 +12,20 @@ struct BottomSheetiOS16: View {
     
     var body: some View {
         MainButton { isShowBottomSheet.toggle() }
-        .sheet(isPresented: $isShowBottomSheet) {
-           MediumContent()
-                .presentationDetents([.medium, .fraction(0.7)])
-            .presentationDragIndicator(.visible)
-        }
-
+            .sheet(isPresented: $isShowBottomSheet) {
+                MediumContent()
+                    .presentationDetents([.medium, .fraction(0.7)])
+                    .presentationDragIndicator(.visible)
+            }
+        
     }
 }
 
-
-
-struct BottomSheetiOS16_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            LinearGradient(colors: [.blue, .yellow], startPoint: .top, endPoint: .bottom)
-                .ignoresSafeArea()
-            
-            BottomSheetiOS16()
-        }
+#Preview {
+    ZStack {
+        ImageBackground()
+        
+        BottomSheetiOS16()
     }
 }
 
-extension View {
-    func bottomSheet() -> some View {
-            Text("Hi")
-    }
-}

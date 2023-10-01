@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		29242B832AC6D24100EE927D /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29242B822AC6D24100EE927D /* BlurView.swift */; };
-		29242B852AC6D44F00EE927D /* CustomCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29242B842AC6D44F00EE927D /* CustomCorner.swift */; };
+		2956C8842AC9CFD1001D9422 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2956C8832AC9CFD1001D9422 /* View+Extension.swift */; };
+		295C6AB32AC86EED00F9B35A /* ImageBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295C6AB22AC86EED00F9B35A /* ImageBackground.swift */; };
 		296E59D42AC61D9B00EF65BD /* CoolFeaturesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E59D32AC61D9B00EF65BD /* CoolFeaturesApp.swift */; };
 		296E59D62AC61D9B00EF65BD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E59D52AC61D9B00EF65BD /* ContentView.swift */; };
 		296E59D82AC61D9C00EF65BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 296E59D72AC61D9C00EF65BD /* Assets.xcassets */; };
@@ -23,7 +24,8 @@
 
 /* Begin PBXFileReference section */
 		29242B822AC6D24100EE927D /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
-		29242B842AC6D44F00EE927D /* CustomCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCorner.swift; sourceTree = "<group>"; };
+		2956C8832AC9CFD1001D9422 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
+		295C6AB22AC86EED00F9B35A /* ImageBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBackground.swift; sourceTree = "<group>"; };
 		296E59D02AC61D9B00EF65BD /* CoolFeatures.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoolFeatures.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		296E59D32AC61D9B00EF65BD /* CoolFeaturesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolFeaturesApp.swift; sourceTree = "<group>"; };
 		296E59D52AC61D9B00EF65BD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -48,6 +50,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2956C8822AC9CFB9001D9422 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2956C8832AC9CFD1001D9422 /* View+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		296E59C72AC61D9B00EF65BD = {
 			isa = PBXGroup;
 			children = (
@@ -67,6 +77,7 @@
 		296E59D22AC61D9B00EF65BD /* CoolFeatures */ = {
 			isa = PBXGroup;
 			children = (
+				2956C8822AC9CFB9001D9422 /* Extensions */,
 				296E59EA2AC62FD300EF65BD /* Views */,
 				296E59D32AC61D9B00EF65BD /* CoolFeaturesApp.swift */,
 				296E59D52AC61D9B00EF65BD /* ContentView.swift */,
@@ -107,7 +118,6 @@
 			children = (
 				296E59E82AC62EDC00EF65BD /* BottomSheetiOS15.swift */,
 				29242B822AC6D24100EE927D /* BlurView.swift */,
-				29242B842AC6D44F00EE927D /* CustomCorner.swift */,
 			);
 			path = iOS15;
 			sourceTree = "<group>";
@@ -119,6 +129,7 @@
 				29997B462AC85D4900F24524 /* SmallContent.swift */,
 				29997B482AC8650600F24524 /* MediumContent.swift */,
 				29997B4A2AC8673700F24524 /* LargeContent.swift */,
+				295C6AB22AC86EED00F9B35A /* ImageBackground.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -199,9 +210,10 @@
 				296E59D62AC61D9B00EF65BD /* ContentView.swift in Sources */,
 				296E59D42AC61D9B00EF65BD /* CoolFeaturesApp.swift in Sources */,
 				29997B4B2AC8673700F24524 /* LargeContent.swift in Sources */,
+				295C6AB32AC86EED00F9B35A /* ImageBackground.swift in Sources */,
 				296E59E62AC6225200EF65BD /* BottomSheetiOS16.swift in Sources */,
-				29242B852AC6D44F00EE927D /* CustomCorner.swift in Sources */,
 				296E59EC2AC62FE900EF65BD /* MainButton.swift in Sources */,
+				2956C8842AC9CFD1001D9422 /* View+Extension.swift in Sources */,
 				29242B832AC6D24100EE927D /* BlurView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

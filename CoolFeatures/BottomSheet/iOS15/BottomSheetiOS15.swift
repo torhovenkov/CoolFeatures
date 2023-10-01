@@ -7,43 +7,85 @@
 
 import SwiftUI
 
-struct BottomSheetiOS15: View {
-    @State private var isPresented = false
+fileprivate struct SheetPreview: View {
+    @State var isPresented: Bool = false
     
     var body: some View {
         ZStack {
-            GeometryReader { geo in
-                Image("photo")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: geo.size.width, height: geo.size.height)
-                    .overlay {
-                        MainButton { isPresented.toggle() }
-                    }
-            }
-            .ignoresSafeArea()
+            ImageBackground()
             
-        }
-    }
-    
-    var content: some View {
-        VStack {
-            HStack {
-                Image(systemName: "heart.fill")
-                Image(systemName: "house.fill")
-                Image(systemName: "star.fill")
-                Image(systemName: "person.fill")
+            MainButton() {
+                withAnimation {
+                    isPresented = true
+                }
             }
-            .font(.largeTitle)
-            .foregroundColor(.pink)
+            
+            BottomSheetiOS15(isPresented: $isPresented) {
+                //                Text("hi")
+//                MediumContent()
+//                    .padding()
+                Color.red
+            }
         }
     }
 }
 
-
-
-struct BottomSheetiOS15_Previews: PreviewProvider {
-    static var previews: some View {
-        BottomSheetiOS15()
+struct BottomSheetiOS15<Content: View>: View {
+    enum Background {
+        case material(UIBlurEffect.Style), color(Color)
     }
+    
+    @Binding var isPresented: Bool
+    
+    var cornerRadius: CGFloat = 20
+    var background: Background = .color(.white)
+    let content: () -> Content
+    
+    var body: some View {
+        
+        ZStack(alignment: .bottom) {
+            Color.black
+                .opacity(isPresented ? 0.5 : 0)
+                .transition(.opacity)
+                .ignoresSafeArea()
+                .onTapGesture {
+                    withAnimation {
+                        isPresented = false
+                    }
+                }
+            
+            if isPresented {
+                ZStack {
+                    switch background {
+                    case .material(let style):
+                        BlurView(style: style)
+                            .cornerRadius(cornerRadius, corners: [.topLeft, .topRight])
+                            .ignoresSafeArea()
+                    case .color(let color):
+                        color
+                            .cornerRadius(cornerRadius, corners: [.topLeft, .topRight])
+                            .ignoresSafeArea()
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 400)
+                    }
+                    
+                    Capsule()
+                        .fill(.gray)
+                        .frame(width: 50, height: 5)
+                        .frame(maxHeight: .infinity, alignment: .top)
+                        .padding(.top, 5)
+                    
+                    content()
+                        .padding(.top, cornerRadius < 15 ? 15 : cornerRadius)
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 400)
+                .transition(.move(edge: .bottom))
+            }
+        }
+    }
+}
+
+#Preview {
+    SheetPreview()
 }
