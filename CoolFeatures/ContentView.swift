@@ -8,14 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var isPresented = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        ZStack {
+            ImageBackground()
+            
+            MainButton() {
+                isPresented = true
+            }
         }
-        .padding()
+        .customSheet($isPresented, completion: { print("Finished") }) {
+            MediumContent()
+        }
     }
 }
 
