@@ -13,13 +13,11 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             ImageBackground()
-            
-            MainButton() {
-                isPresented = true
-            }
-        }
-        .customSheet($isPresented, completion: { print("Finished") }) {
-            MediumContent()
+                .overlay {
+                    MainButton(title: "Press me") {
+                        isPresented = true
+                    }
+                }
         }
     }
 }

@@ -39,79 +39,80 @@ extension View {
 
 
 struct BottomSheetiOS15<Content: View>: View {
-    enum Background {
-        case material(UIBlurEffect.Style), color(Color)
+    enum Detention {
+        case medium, large, fraction(Double)
+        
+        var height: Double {
+            switch self {
+            case .medium:
+                0.4
+            case .large:
+                0.8
+            case .fraction(let height):
+                height
+            }
+        }
     }
     
     @Binding var isPresented: Bool
+    var detention: Detention = .large
+    let completion: () -> ()
     
-    @State private var screenHeight: CGFloat = 0
-    @State private var safeAreaSize: CGFloat = 0
-    
-    var cornerRadius: CGFloat = 20
-    var background: Background = .color(.white)
-    var completion: () -> () = {}
-    let content: () -> Content
-    
-    var halfScreen: CGFloat {
-        screenHeight * 0.5
-    }
+    @ViewBuilder let content: () -> Content
+
+    @State private var offsetY: CGFloat = 0
+    @State private var currentHeight: CGFloat = 0
     
     var body: some View {
-        
-        ZStack(alignment: .bottom) {
+        GeometryReader { geo in
             Color.black
-                .opacity(isPresented ? 0.5 : 0)
-                .transition(.opacity)
                 .ignoresSafeArea()
+                .opacity(isPresented ? 0.7 : 0)
                 .animation(.easeInOut, value: isPresented)
-                .background {
-                    GeometryReader { geo in
-                        Color.clear
-                            .onAppear {
-                                safeAreaSize = geo.safeAreaInsets.bottom
-                                screenHeight = geo.size.height
-                            }
-                    }
-                }
                 .onTapGesture {
                     isPresented = false
                 }
-            
-            ZStack {
-                switch background {
-                case .material(let style):
-                    BlurView(style: style)
-                        .cornerRadius(cornerRadius, corners: [.topLeft, .topRight])
+                .onAppear { currentHeight = geo.size.height }
+                .overlay(alignment: .bottom) {
+                    Color.white
+                        .cornerRadius(20, corners: [.topLeft, .topRight])
                         .ignoresSafeArea()
-                case .color(let color):
-                    color
-                        .cornerRadius(cornerRadius, corners: [.topLeft, .topRight])
-                        .ignoresSafeArea()
-                        .frame(maxWidth: .infinity)
+                        .frame(height: detention.height * currentHeight)
+                        .overlay {
+                            content()
+                                .padding(.top, 20)
+                        }
+                        .scaleEffect(scale, anchor: .bottom)
+                        .offset(y: max(0, offsetY))
+                        .gesture(drag)
+                        .alignmentGuide(.bottom) {
+                            isPresented ? $0[.bottom] : $0[.top] - geo.safeAreaInsets.bottom
+                        }
+                        .animation(.smooth(duration: 0.35), value: isPresented)
                 }
-                
-                Capsule()
-                    .fill(.gray)
-                    .frame(width: 50, height: 5)
-                    .frame(maxHeight: .infinity, alignment: .top)
-                    .padding(.top, 5)
-                
-                content()
-                    .padding(.top, cornerRadius < 15 ? 15 : cornerRadius)
-            }
-            .frame(maxWidth: .infinity)
-            .frame(height: halfScreen)
-            .offset(y: isPresented ? 0 : halfScreen + safeAreaSize)
-            .animation(.smooth(duration: 0.35), value: isPresented)
         }
-        .onChange(of: isPresented) { newValue in
-            if !newValue {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
-                    completion()
+    }
+    
+    var drag: some Gesture {
+        DragGesture()
+            .onChanged { val in
+                let height = val.translation.height < 0 ? val.translation.height * 0.2 : val.translation.height
+                offsetY = max(-50, height)
+            }
+            .onEnded { val in
+                if val.translation.height > 100 {
+                    offsetY = 0
+                    isPresented = false
+                } else {
+                    withAnimation {
+                        offsetY = 0
+                    }
                 }
             }
-        }
+    }
+    
+    var scale: CGSize {
+        CGSize(width: 1, height: offsetY < 0 ? 1 + abs(offsetY / 1000) : 1)
     }
 }
 
