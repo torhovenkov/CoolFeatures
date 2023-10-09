@@ -13,11 +13,13 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             ImageBackground()
-                .overlay {
-                    MainButton(title: "Press me") {
-                        isPresented = true
-                    }
-                }
+               
+            MainButton {
+                    isPresented.toggle()
+            }
+            
+            Effect(isCircle: $isPresented)
+                .offset(y: 200)
         }
     }
 }

@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		29242B832AC6D24100EE927D /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29242B822AC6D24100EE927D /* BlurView.swift */; };
 		2956C8842AC9CFD1001D9422 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2956C8832AC9CFD1001D9422 /* View+Extension.swift */; };
 		295C6AB32AC86EED00F9B35A /* ImageBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295C6AB22AC86EED00F9B35A /* ImageBackground.swift */; };
+		2962E0282AD47B4A00CB0634 /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2962E0272AD47B4A00CB0634 /* Effect.swift */; };
 		296E59D42AC61D9B00EF65BD /* CoolFeaturesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E59D32AC61D9B00EF65BD /* CoolFeaturesApp.swift */; };
 		296E59D62AC61D9B00EF65BD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E59D52AC61D9B00EF65BD /* ContentView.swift */; };
 		296E59D82AC61D9C00EF65BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 296E59D72AC61D9C00EF65BD /* Assets.xcassets */; };
@@ -17,15 +17,17 @@
 		296E59E62AC6225200EF65BD /* BottomSheetiOS16.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E59E52AC6225200EF65BD /* BottomSheetiOS16.swift */; };
 		296E59E92AC62EDC00EF65BD /* BottomSheetiOS15.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E59E82AC62EDC00EF65BD /* BottomSheetiOS15.swift */; };
 		296E59EC2AC62FE900EF65BD /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E59EB2AC62FE900EF65BD /* MainButton.swift */; };
+		2997DA352AD2021000E4A473 /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2997DA342AD2021000E4A473 /* BottomSheetView.swift */; };
 		29997B472AC85D4900F24524 /* SmallContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29997B462AC85D4900F24524 /* SmallContent.swift */; };
 		29997B492AC8650600F24524 /* MediumContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29997B482AC8650600F24524 /* MediumContent.swift */; };
 		29997B4B2AC8673700F24524 /* LargeContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29997B4A2AC8673700F24524 /* LargeContent.swift */; };
+		29A5B6A02AD43E76009B4BE9 /* EasySwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 29A5B69F2AD43E76009B4BE9 /* EasySwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		29242B822AC6D24100EE927D /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		2956C8832AC9CFD1001D9422 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		295C6AB22AC86EED00F9B35A /* ImageBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBackground.swift; sourceTree = "<group>"; };
+		2962E0272AD47B4A00CB0634 /* Effect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Effect.swift; sourceTree = "<group>"; };
 		296E59D02AC61D9B00EF65BD /* CoolFeatures.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoolFeatures.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		296E59D32AC61D9B00EF65BD /* CoolFeaturesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolFeaturesApp.swift; sourceTree = "<group>"; };
 		296E59D52AC61D9B00EF65BD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -34,6 +36,7 @@
 		296E59E52AC6225200EF65BD /* BottomSheetiOS16.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetiOS16.swift; sourceTree = "<group>"; };
 		296E59E82AC62EDC00EF65BD /* BottomSheetiOS15.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetiOS15.swift; sourceTree = "<group>"; };
 		296E59EB2AC62FE900EF65BD /* MainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
+		2997DA342AD2021000E4A473 /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
 		29997B462AC85D4900F24524 /* SmallContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallContent.swift; sourceTree = "<group>"; };
 		29997B482AC8650600F24524 /* MediumContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumContent.swift; sourceTree = "<group>"; };
 		29997B4A2AC8673700F24524 /* LargeContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeContent.swift; sourceTree = "<group>"; };
@@ -44,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29A5B6A02AD43E76009B4BE9 /* EasySwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +85,7 @@
 				296E59EA2AC62FD300EF65BD /* Views */,
 				296E59D32AC61D9B00EF65BD /* CoolFeaturesApp.swift */,
 				296E59D52AC61D9B00EF65BD /* ContentView.swift */,
+				2962E0272AD47B4A00CB0634 /* Effect.swift */,
 				296E59E12AC61E4300EF65BD /* BottomSheet */,
 				296E59D72AC61D9C00EF65BD /* Assets.xcassets */,
 				296E59D92AC61D9C00EF65BD /* Preview Content */,
@@ -117,7 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				296E59E82AC62EDC00EF65BD /* BottomSheetiOS15.swift */,
-				29242B822AC6D24100EE927D /* BlurView.swift */,
+				2997DA342AD2021000E4A473 /* BottomSheetView.swift */,
 			);
 			path = iOS15;
 			sourceTree = "<group>";
@@ -150,6 +155,9 @@
 			dependencies = (
 			);
 			name = CoolFeatures;
+			packageProductDependencies = (
+				29A5B69F2AD43E76009B4BE9 /* EasySwiftUI */,
+			);
 			productName = CoolFeatures;
 			productReference = 296E59D02AC61D9B00EF65BD /* CoolFeatures.app */;
 			productType = "com.apple.product-type.application";
@@ -178,6 +186,9 @@
 				Base,
 			);
 			mainGroup = 296E59C72AC61D9B00EF65BD;
+			packageReferences = (
+				29A5B69E2AD43E76009B4BE9 /* XCRemoteSwiftPackageReference "EasySwiftUI" */,
+			);
 			productRefGroup = 296E59D12AC61D9B00EF65BD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -209,12 +220,13 @@
 				29997B472AC85D4900F24524 /* SmallContent.swift in Sources */,
 				296E59D62AC61D9B00EF65BD /* ContentView.swift in Sources */,
 				296E59D42AC61D9B00EF65BD /* CoolFeaturesApp.swift in Sources */,
+				2997DA352AD2021000E4A473 /* BottomSheetView.swift in Sources */,
+				2962E0282AD47B4A00CB0634 /* Effect.swift in Sources */,
 				29997B4B2AC8673700F24524 /* LargeContent.swift in Sources */,
 				295C6AB32AC86EED00F9B35A /* ImageBackground.swift in Sources */,
 				296E59E62AC6225200EF65BD /* BottomSheetiOS16.swift in Sources */,
 				296E59EC2AC62FE900EF65BD /* MainButton.swift in Sources */,
 				2956C8842AC9CFD1001D9422 /* View+Extension.swift in Sources */,
-				29242B832AC6D24100EE927D /* BlurView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,6 +439,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		29A5B69E2AD43E76009B4BE9 /* XCRemoteSwiftPackageReference "EasySwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/BeeMeeMan/EasySwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.47;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		29A5B69F2AD43E76009B4BE9 /* EasySwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 29A5B69E2AD43E76009B4BE9 /* XCRemoteSwiftPackageReference "EasySwiftUI" */;
+			productName = EasySwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 296E59C82AC61D9B00EF65BD /* Project object */;
 }
