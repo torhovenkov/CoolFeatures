@@ -71,6 +71,7 @@ struct BottomSheetView<Content: View>: View {
     PreviewSheetView()
 }
 
+fileprivate
 struct PreviewSheetView: View {
     @State var isShow: Bool = false
     

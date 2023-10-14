@@ -7,47 +7,101 @@
 
 import SwiftUI
 
-struct BottomSheet2<Content: View>: View {
-    enum Detention: Hashable {
-        case medium, large, fraction(Double)
-        
-        var height: Double {
-            switch self {
-            case .medium:
-                0.4
-            case .large:
-                0.99
-            case .fraction(let double):
-                double
-            }
+extension View {
+    @ViewBuilder
+    func bottomSheet<Content: View>(
+        isPresented: Binding<Bool>,
+        dragArea: CGFloat = 40,
+        color: Color = .white,
+        detention: Detention = .large,
+        isShowDragIndicator: Bool = true,
+        @ViewBuilder content: @escaping () -> Content
+    ) -> some View {
+        overlay {
+            BottomSheet(isPresented: isPresented, dragArea: dragArea, color: color, detention: detention, isShowDragIndicator: isShowDragIndicator, content: content)
+        }
+    }
+    @ViewBuilder
+    func bottomSheet<Content: View>(
+        isPresented: Binding<Bool>,
+        dragArea: CGFloat = 40,
+        color: Color = .white,
+        minDetention: Detention,
+        maxDetention: Detention,
+        isShowDragIndicator: Bool = true,
+        @ViewBuilder content: @escaping () -> Content
+    ) -> some View {
+        overlay {
+            BottomSheet(isPresented: isPresented, dragArea: dragArea, color: color, minDetention: minDetention, maxDetention: maxDetention, isShowDragIndicator: isShowDragIndicator, content: content)
         }
     }
     
+}
+
+fileprivate struct testSheet: View {
+    @State var isPresented: Bool = false
+    
+    var body: some View {
+        ZStack {
+            ImageBackground()
+            
+            MainButton {
+                isPresented.toggle()
+            }
+        }
+        .bottomSheet(isPresented: $isPresented, dragArea: 40, color: .white, minDetention: .fraction(0.4), maxDetention: .fraction(0.7), isShowDragIndicator: true) {
+            SmallContent()
+        }
+        
+    }
+}
+
+fileprivate
+struct BottomSheet<Content: View>: View {
     @Binding var isPresented: Bool
-    var dragArea: CGFloat = 40
-    var color: Color = .red
+    let dragArea: CGFloat
+    let color: Color
+    let detention: (min: Detention, max: Detention)
+    let isShowingDragIndicator: Bool
     let content: () -> Content
+    
+    init(
+        isPresented: Binding<Bool>,
+        dragArea: CGFloat,
+        color: Color,
+        detention: Detention,
+        isShowDragIndicator: Bool,
+        @ViewBuilder content: @escaping () -> Content
+    ) {
+        self._isPresented = isPresented
+        self.dragArea = dragArea
+        self.color = color
+        self.detention = (detention, detention)
+        self.isShowingDragIndicator = isShowDragIndicator
+        self.content = content
+    }
+    
+    init(
+        isPresented: Binding<Bool>,
+        dragArea: CGFloat = 0,
+        color: Color = .white,
+        minDetention: Detention,
+        maxDetention: Detention,
+        isShowDragIndicator: Bool = true,
+        @ViewBuilder content: @escaping () -> Content
+    ) {
+        self._isPresented = isPresented
+        self.dragArea = dragArea
+        self.color = color
+        self.detention = (min(minDetention, maxDetention), max(minDetention, maxDetention))
+        self.isShowingDragIndicator = isShowDragIndicator
+        self.content = content
+    }
     
     @State private var screenHeight: CGFloat = 0
     @State private var extraHeight: CGFloat = 0
     @State private var offsetY: CGFloat = 0
     @State private var currentHeight: CGFloat = 0
-    
-    var minHeight: CGFloat = 400
-    var maxHeight: CGFloat = 700
-    
-    
-    var isNeedOffset: Bool {
-        currentHeight == minHeight
-    }
-    
-    var minDragDistance: CGFloat {
-        100
-    }
-    
-    var cornerRadius: CGFloat {
-        dragArea > 20 ? 20 : dragArea
-    }
     
     var body: some View {
         GeometryReader { geo in
@@ -68,16 +122,11 @@ struct BottomSheet2<Content: View>: View {
                             .padding(.top, dragArea)
                     }
                     .offset(y: offsetY)
-                    
                     .offset(y: isPresented ? 0 : currentHeight + geo.safeAreaInsets.bottom)
                     .overlay(alignment: .top) {
-                        color
-                            .cornerRadius(cornerRadius, corners: [.topLeft, .topRight])
+                        Color.white.opacity(0.0001)
                             .overlay(alignment: .top) {
-                                Capsule()
-                                    .fill(.secondary)
-                                    .frame(width: 60, height: 7)
-                                    .padding(5)
+                                dragIndicator
                             }
                             .frame(height: dragArea)
                             .offset(y: offsetY)
@@ -86,6 +135,7 @@ struct BottomSheet2<Content: View>: View {
                     }
             }
             .onAppear {
+                screenHeight = geo.size.height
                 currentHeight = minHeight
             }
             .animation(.smooth, value: isPresented)
@@ -102,6 +152,30 @@ struct BottomSheet2<Content: View>: View {
                 setHeight(with: val)
                 hideSheet()
             }
+    }
+    
+    var dragIndicator: some View {
+        Capsule()
+            .fill(.secondary
+                .opacity(isShowingDragIndicator ? 1 : 0))
+            .frame(width: 60, height: 7)
+            .padding(5)
+    }
+    
+    var minHeight: CGFloat {
+        screenHeight * detention.min.height
+    }
+    var maxHeight: CGFloat {
+        screenHeight * detention.max.height
+    }
+    var isNeedOffset: Bool {
+        currentHeight == minHeight
+    }
+    var minDragDistance: CGFloat {
+        minHeight == maxHeight ? 100 : min(100, (maxHeight - minHeight) * 0.33)
+    }
+    var cornerRadius: CGFloat {
+        dragArea > 20 ? 20 : dragArea
     }
     
     private func updateOffsetY(with value: DragGesture.Value) {
@@ -159,34 +233,28 @@ struct BottomSheet2<Content: View>: View {
     
 }
 
-extension View {
-    @ViewBuilder
-    func bottomSheet2<Content: View>(_ isPresented: Binding<Bool>, completion: @escaping () -> () = {}, content: @escaping () -> Content) -> some View {
-        
-        ZStack {
-            self
-            
-            BottomSheet2(isPresented: isPresented, content: content)
-            
-        }
+
+enum Detention: Hashable, Comparable {
+case medium, large, fraction(Double)
+
+var height: Double {
+    switch self {
+    case .medium:
+        0.5
+    case .large:
+        0.99
+    case .fraction(let double):
+        double
     }
 }
 
-fileprivate struct testSheet: View {
-    @State var isPresented: Bool = false
-    
-    var body: some View {
-        ZStack {
-            ImageBackground()
-            
-            MainButton {
-                isPresented.toggle()
-            }
-        }
-        .bottomSheet2($isPresented) {
-            MediumContent()
-        }
-    }
+static func <(lhs: Detention, rhs: Detention) -> Bool {
+    lhs.height < rhs.height
+}
+
+static func >(lhs: Detention, rhs: Detention) -> Bool {
+    lhs.height > rhs.height
+}
 }
 
 

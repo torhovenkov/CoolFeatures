@@ -18,8 +18,9 @@ struct ContentView: View {
                     isPresented.toggle()
             }
             
-            Effect(isCircle: $isPresented)
-                .offset(y: 200)
+        }
+        .bottomSheet(isPresented: $isPresented, minDetention: .medium, maxDetention: .fraction(0.8)) {
+            MediumContent()
         }
     }
 }
