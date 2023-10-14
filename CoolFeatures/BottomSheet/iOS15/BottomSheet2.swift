@@ -7,13 +7,31 @@
 
 import SwiftUI
 
-struct BottomSheet2: View {
-    @State var isPresented: Bool = true
+struct BottomSheet2<Content: View>: View {
+    enum Detention: Hashable {
+        case medium, large, fraction(Double)
+        
+        var height: Double {
+            switch self {
+            case .medium:
+                0.4
+            case .large:
+                0.99
+            case .fraction(let double):
+                double
+            }
+        }
+    }
+    
+    @Binding var isPresented: Bool
+    let content: () -> Content
+    
     @State private var extraHeight: CGFloat = 0
     @State private var offsetY: CGFloat = 0
     @State private var minHeight: CGFloat = 0
     
     let heights: [CGFloat] = [400, 700]
+    
     
     var isNeedOffset: Bool {
         minHeight == heights.min() ?? 0
@@ -25,32 +43,30 @@ struct BottomSheet2: View {
     
     var body: some View {
         GeometryReader { geo in
-        ZStack(alignment: .bottom) {
-            Color.black
-                .ignoresSafeArea()
-                .opacity(isPresented ? 0.7 : 0)
-                .onTapGesture {
-                    isPresented = false
-                }
-            
-            Color.white
-                .ignoresSafeArea(.all, edges: .bottom)
-                .frame(maxHeight: minHeight + extraHeight)
-                .overlay {
-                    MediumContent()
-                }
-                .offset(y: offsetY)
-                .gesture(drag)
-                .alignmentGuide(.bottom) {
-                    isPresented ? $0[.bottom] : $0[.top] - geo.safeAreaInsets.bottom
-                }
-            
+            ZStack(alignment: .bottom) {
+                Color.black
+                    .ignoresSafeArea()
+                    .opacity(isPresented ? 0.7 : 0)
+                    .onTapGesture {
+                        isPresented = false
+                    }
+                
+                Color.white
+                    .ignoresSafeArea(.all, edges: .bottom)
+                    .frame(maxHeight: minHeight + extraHeight)
+                    .overlay {
+                            content()
+                    }
+                    .offset(y: offsetY)
+                    .gesture(drag)
+                    .offset(y: isPresented ? 0 : minHeight + geo.safeAreaInsets.bottom)
+                
+            }
+            .onAppear {
+                minHeight = heights.min() ?? 0
+            }
+            .animation(.smooth, value: isPresented)
         }
-        .onAppear {
-            minHeight = heights.min() ?? 0
-        }
-        .animation(.smooth, value: isPresented)
-    }
     }
     
     var drag: some Gesture {
@@ -124,6 +140,37 @@ struct BottomSheet2: View {
     
 }
 
+extension View {
+    @ViewBuilder
+    func bottomSheet2<Content: View>(_ isPresented: Binding<Bool>, completion: @escaping () -> () = {}, content: @escaping () -> Content) -> some View {
+        
+        ZStack {
+            self
+            
+            BottomSheet2(isPresented: isPresented, content: content)
+            
+        }
+    }
+}
+
+fileprivate struct testSheet: View {
+    @State var isPresented: Bool = false
+    
+    var body: some View {
+        ZStack {
+            ImageBackground()
+            
+            MainButton {
+                isPresented.toggle()
+            }
+        }
+        .bottomSheet2($isPresented) {
+            MediumContent()
+        }
+    }
+}
+
+
 #Preview {
-    BottomSheet2()
+    testSheet()
 }
