@@ -111,6 +111,7 @@ struct BottomSheet<Content: View>: View {
                     .opacity(isPresented ? 0.7 : 0)
                     .onTapGesture {
                         isPresented = false
+                        currentHeight = minHeight
                     }
                 
                 color
@@ -198,7 +199,6 @@ struct BottomSheet<Content: View>: View {
         }
         
         if abs(extraHeight) <= minDragDistance && abs(offsetY) <= minDragDistance {
-            print(extraHeight)
             withAnimation(.smooth) {
                 offsetY = 0
                 extraHeight = 0
