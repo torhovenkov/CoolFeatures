@@ -24,21 +24,29 @@ struct BottomSheet2<Content: View>: View {
     }
     
     @Binding var isPresented: Bool
+    var dragArea: CGFloat = 40
+    var color: Color = .red
     let content: () -> Content
     
+    @State private var screenHeight: CGFloat = 0
     @State private var extraHeight: CGFloat = 0
     @State private var offsetY: CGFloat = 0
-    @State private var minHeight: CGFloat = 0
+    @State private var currentHeight: CGFloat = 0
     
-    let heights: [CGFloat] = [400, 700]
+    var minHeight: CGFloat = 400
+    var maxHeight: CGFloat = 700
     
     
     var isNeedOffset: Bool {
-        minHeight == heights.min() ?? 0
+        currentHeight == minHeight
     }
     
     var minDragDistance: CGFloat {
         100
+    }
+    
+    var cornerRadius: CGFloat {
+        dragArea > 20 ? 20 : dragArea
     }
     
     var body: some View {
@@ -51,19 +59,34 @@ struct BottomSheet2<Content: View>: View {
                         isPresented = false
                     }
                 
-                Color.white
+                color
+                    .cornerRadius(cornerRadius, corners: [.topLeft, .topRight])
                     .ignoresSafeArea(.all, edges: .bottom)
-                    .frame(maxHeight: minHeight + extraHeight)
+                    .frame(maxHeight: currentHeight + extraHeight)
                     .overlay {
                             content()
+                            .padding(.top, dragArea)
                     }
                     .offset(y: offsetY)
-                    .gesture(drag)
-                    .offset(y: isPresented ? 0 : minHeight + geo.safeAreaInsets.bottom)
-                
+                    
+                    .offset(y: isPresented ? 0 : currentHeight + geo.safeAreaInsets.bottom)
+                    .overlay(alignment: .top) {
+                        color
+                            .cornerRadius(cornerRadius, corners: [.topLeft, .topRight])
+                            .overlay(alignment: .top) {
+                                Capsule()
+                                    .fill(.secondary)
+                                    .frame(width: 60, height: 7)
+                                    .padding(5)
+                            }
+                            .frame(height: dragArea)
+                            .offset(y: offsetY)
+                            .offset(y: isPresented ? 0 : currentHeight + geo.safeAreaInsets.bottom)
+                            .gesture(drag)
+                    }
             }
             .onAppear {
-                minHeight = heights.min() ?? 0
+                currentHeight = minHeight
             }
             .animation(.smooth, value: isPresented)
         }
@@ -81,17 +104,17 @@ struct BottomSheet2<Content: View>: View {
             }
     }
     
-    func updateOffsetY(with value: DragGesture.Value) {
+    private func updateOffsetY(with value: DragGesture.Value) {
         offsetY = isNeedOffset ? max(0, value.translation.height) * 0.7 : 0
     }
     
-    func updateHeight(with value: DragGesture.Value) {
+    private func updateHeight(with value: DragGesture.Value) {
         withAnimation(.easeOut) {
             extraHeight = (isNeedOffset ? max(0, -value.translation.height) : -value.translation.height)
         }
     }
     
-    func setHeight(with value: DragGesture.Value) {
+    private func setHeight(with value: DragGesture.Value) {
         if extraHeight > minDragDistance {
             increaseHeight()
         }
@@ -103,39 +126,35 @@ struct BottomSheet2<Content: View>: View {
         if abs(extraHeight) <= minDragDistance && abs(offsetY) <= minDragDistance {
             print(extraHeight)
             withAnimation(.smooth) {
-                reset()
+                offsetY = 0
+                extraHeight = 0
             }
         }
         
         func increaseHeight() {
-            minHeight += abs(extraHeight)
+            currentHeight += abs(extraHeight)
             extraHeight = 0
             withAnimation(.smooth) {
-                minHeight = heights.max() ?? 0
+                currentHeight = maxHeight
             }
         }
         
         func decreaseHeight() {
             if !isNeedOffset {
-                minHeight += extraHeight
+                currentHeight += extraHeight
                 extraHeight = 0
                 withAnimation(.interpolatingSpring) {
-                    minHeight = heights.min() ?? 0
+                    currentHeight = minHeight
                 }
             }
         }
     }
     
-    func hideSheet() {
+    private func hideSheet() {
         if offsetY > minDragDistance {
             offsetY = 0
             isPresented = false
         }
-    }
-    
-    private func reset() {
-        offsetY = 0
-        extraHeight = 0
     }
     
 }
