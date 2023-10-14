@@ -8,19 +8,30 @@
 import SwiftUI
 
 struct BottomSheet2: View {
+    @State var isPresented: Bool = true
+    @State private var extraHeight: CGFloat = 0
+    @State private var offsetY: CGFloat = 0
+    @State private var minHeight: CGFloat = 0
+    
     let heights: [CGFloat] = [400, 700]
     
     var isNeedOffset: Bool {
         minHeight == heights.min() ?? 0
     }
     
-    @State private var extraHeight: CGFloat = 0
-    @State private var offsetY: CGFloat = 0
-    @State private var minHeight: CGFloat = 0
+    var minDragDistance: CGFloat {
+        100
+    }
     
     var body: some View {
+        GeometryReader { geo in
         ZStack(alignment: .bottom) {
-            ImageBackground()
+            Color.black
+                .ignoresSafeArea()
+                .opacity(isPresented ? 0.7 : 0)
+                .onTapGesture {
+                    isPresented = false
+                }
             
             Color.white
                 .ignoresSafeArea(.all, edges: .bottom)
@@ -30,11 +41,16 @@ struct BottomSheet2: View {
                 }
                 .offset(y: offsetY)
                 .gesture(drag)
+                .alignmentGuide(.bottom) {
+                    isPresented ? $0[.bottom] : $0[.top] - geo.safeAreaInsets.bottom
+                }
             
         }
         .onAppear {
             minHeight = heights.min() ?? 0
         }
+        .animation(.smooth, value: isPresented)
+    }
     }
     
     var drag: some Gesture {
@@ -45,7 +61,7 @@ struct BottomSheet2: View {
             }
             .onEnded { val in
                 setHeight(with: val)
-                
+                hideSheet()
             }
     }
     
@@ -60,15 +76,16 @@ struct BottomSheet2: View {
     }
     
     func setHeight(with value: DragGesture.Value) {
-        if extraHeight > 100 {
+        if extraHeight > minDragDistance {
             increaseHeight()
         }
         
-        if extraHeight < -100 {
+        if extraHeight < -minDragDistance {
             decreaseHeight()
         }
         
-        if abs(extraHeight) <= 100 {
+        if abs(extraHeight) <= minDragDistance && abs(offsetY) <= minDragDistance {
+            print(extraHeight)
             withAnimation(.smooth) {
                 reset()
             }
@@ -83,11 +100,20 @@ struct BottomSheet2: View {
         }
         
         func decreaseHeight() {
-            minHeight += extraHeight
-            extraHeight = 0
-            withAnimation(.interpolatingSpring) {
-                minHeight = heights.min() ?? 0
+            if !isNeedOffset {
+                minHeight += extraHeight
+                extraHeight = 0
+                withAnimation(.interpolatingSpring) {
+                    minHeight = heights.min() ?? 0
+                }
             }
+        }
+    }
+    
+    func hideSheet() {
+        if offsetY > minDragDistance {
+            offsetY = 0
+            isPresented = false
         }
     }
     
