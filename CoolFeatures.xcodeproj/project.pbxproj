@@ -21,6 +21,7 @@
 		29997B472AC85D4900F24524 /* SmallContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29997B462AC85D4900F24524 /* SmallContent.swift */; };
 		29997B492AC8650600F24524 /* MediumContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29997B482AC8650600F24524 /* MediumContent.swift */; };
 		29997B4B2AC8673700F24524 /* LargeContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29997B4A2AC8673700F24524 /* LargeContent.swift */; };
+		299E95D12ADAC6EE0015E619 /* BottomSheet2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299E95D02ADAC6EE0015E619 /* BottomSheet2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		29997B462AC85D4900F24524 /* SmallContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallContent.swift; sourceTree = "<group>"; };
 		29997B482AC8650600F24524 /* MediumContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumContent.swift; sourceTree = "<group>"; };
 		29997B4A2AC8673700F24524 /* LargeContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeContent.swift; sourceTree = "<group>"; };
+		299E95D02ADAC6EE0015E619 /* BottomSheet2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheet2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +66,6 @@
 			isa = PBXGroup;
 			children = (
 				2962E02A2AD4911D00CB0634 /* MatchedGeometry */,
-				296E59E12AC61E4300EF65BD /* BottomSheet */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -100,6 +101,7 @@
 				296E59EA2AC62FD300EF65BD /* Views */,
 				296E59D32AC61D9B00EF65BD /* CoolFeaturesApp.swift */,
 				296E59D52AC61D9B00EF65BD /* ContentView.swift */,
+				296E59E12AC61E4300EF65BD /* BottomSheet */,
 				2962E0292AD4911000CB0634 /* Animations */,
 				296E59D72AC61D9C00EF65BD /* Assets.xcassets */,
 				296E59D92AC61D9C00EF65BD /* Preview Content */,
@@ -137,6 +139,7 @@
 			children = (
 				296E59E82AC62EDC00EF65BD /* BottomSheetiOS15.swift */,
 				2997DA342AD2021000E4A473 /* BottomSheetView.swift */,
+				299E95D02ADAC6EE0015E619 /* BottomSheet2.swift */,
 			);
 			path = iOS15;
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 				29997B472AC85D4900F24524 /* SmallContent.swift in Sources */,
 				296E59D62AC61D9B00EF65BD /* ContentView.swift in Sources */,
 				296E59D42AC61D9B00EF65BD /* CoolFeaturesApp.swift in Sources */,
+				299E95D12ADAC6EE0015E619 /* BottomSheet2.swift in Sources */,
 				2997DA352AD2021000E4A473 /* BottomSheetView.swift in Sources */,
 				2962E0282AD47B4A00CB0634 /* Effect.swift in Sources */,
 				29997B4B2AC8673700F24524 /* LargeContent.swift in Sources */,
