@@ -17,7 +17,6 @@ struct BottomSheetiOS16: View {
                     .presentationDetents([.medium, .fraction(0.7)])
                     .presentationDragIndicator(.visible)
             }
-        
     }
 }
 
