@@ -19,9 +19,12 @@ struct ContentView: View {
             }
             
         }
-        .bottomSheet(isPresented: $isPresented, minDetention: .medium, maxDetention: .fraction(0.8)) {
+//        .bottomSheet(isPresented: $isPresented, minDetention: .medium, maxDetention: .fraction(0.8)) {
+//            MediumContent()
+//        }
+        .sheet(isPresented: $isPresented, content: {
             MediumContent()
-        }
+        })
     }
 }
 
