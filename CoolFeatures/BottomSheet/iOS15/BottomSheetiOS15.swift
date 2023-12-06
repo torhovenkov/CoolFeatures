@@ -7,61 +7,11 @@
 
 import SwiftUI
 
-fileprivate struct SheetPreview: View {
-    @State var isPresented: Bool = false
-    
-    var body: some View {
-        ZStack {
-            ImageBackground()
-            
-            MainButton() {
-                isPresented = true
-            }
-        }
-        .customSheet($isPresented, completion: { print("Finished") }) {
-            MediumContent()
-        }
-    }
-}
-
-extension View {
-    @ViewBuilder
-    func customSheet<Content: View>(_ isPresented: Binding<Bool>, completion: @escaping () -> () = {}, content: @escaping () -> Content) -> some View {
-        
-        ZStack {
-            self
-            
-            BottomSheetiOS15(isPresented: isPresented, completion: completion, content: content)
-            
-        }
-    }
-}
-
-
 struct BottomSheetiOS15<Content: View>: View {
-    enum Detention {
-        case medium, large, fraction(Double)
-        
-        var height: Double {
-            switch self {
-            case .medium:
-                0.4
-            case .large:
-                0.8
-            case .fraction(let height):
-                height
-            }
-        }
-    }
-    
     @Binding var isPresented: Bool
-    var detention: Detention = .large
-    let completion: () -> ()
-    
     @ViewBuilder let content: () -> Content
-
+    
     @State private var offsetY: CGFloat = 0
-    @State private var currentHeight: CGFloat = 0
     
     var body: some View {
         GeometryReader { geo in
@@ -72,16 +22,8 @@ struct BottomSheetiOS15<Content: View>: View {
                 .onTapGesture {
                     isPresented = false
                 }
-                .onAppear { currentHeight = geo.size.height }
                 .overlay(alignment: .bottom) {
-                    Color.white
-                        .cornerRadius(20, corners: [.topLeft, .topRight])
-                        .ignoresSafeArea()
-                        .frame(height: detention.height * currentHeight)
-                        .overlay {
-                            content()
-                                .padding(.top, 20)
-                        }
+                    content()
                         .scaleEffect(scale, anchor: .bottom)
                         .offset(y: max(0, offsetY))
                         .gesture(drag)
@@ -117,5 +59,17 @@ struct BottomSheetiOS15<Content: View>: View {
 }
 
 #Preview {
-    SheetPreview()
+    ContentView()
+}
+
+extension View {
+    @ViewBuilder
+    func customSheet<Content: View>(_ isPresented: Binding<Bool>, completion: @escaping () -> () = {}, content: @escaping () -> Content) -> some View {
+        
+        ZStack {
+            self
+            
+            BottomSheetiOS15(isPresented: isPresented, content: content)
+        }
+    }
 }

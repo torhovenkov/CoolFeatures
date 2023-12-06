@@ -7,79 +7,14 @@
 
 import SwiftUI
 
-extension View {
-    @ViewBuilder
-    func bottomSheet<Content: View>(
-        isPresented: Binding<Bool>,
-        dragArea: CGFloat = 40,
-        color: Color = .white,
-        detention: Detention = .large,
-        isShowDragIndicator: Bool = true,
-        @ViewBuilder content: @escaping () -> Content
-    ) -> some View {
-        overlay {
-            BottomSheet(isPresented: isPresented, dragArea: dragArea, color: color, detention: detention, isShowDragIndicator: isShowDragIndicator, content: content)
-        }
-    }
-    @ViewBuilder
-    func bottomSheet<Content: View>(
-        isPresented: Binding<Bool>,
-        dragArea: CGFloat = 40,
-        color: Color = .white,
-        minDetention: Detention,
-        maxDetention: Detention,
-        isShowDragIndicator: Bool = true,
-        @ViewBuilder content: @escaping () -> Content
-    ) -> some View {
-        overlay {
-            BottomSheet(isPresented: isPresented, dragArea: dragArea, color: color, minDetention: minDetention, maxDetention: maxDetention, isShowDragIndicator: isShowDragIndicator, content: content)
-        }
-    }
-    
-}
-
-fileprivate struct testSheet: View {
-    @State var isPresented: Bool = false
-    
-    var body: some View {
-        ZStack {
-            ImageBackground()
-            
-            MainButton {
-                isPresented.toggle()
-            }
-        }
-        .bottomSheet(isPresented: $isPresented, dragArea: 40, color: .white, minDetention: .fraction(0.4), maxDetention: .fraction(0.7), isShowDragIndicator: true) {
-            SmallContent()
-        }
-        
-    }
-}
-
-fileprivate
 struct BottomSheet<Content: View>: View {
     @Binding var isPresented: Bool
-    let dragArea: CGFloat
-    let color: Color
-    let detention: (min: Detention, max: Detention)
-    let isShowingDragIndicator: Bool
-    let content: () -> Content
     
-    init(
-        isPresented: Binding<Bool>,
-        dragArea: CGFloat,
-        color: Color,
-        detention: Detention,
-        isShowDragIndicator: Bool,
-        @ViewBuilder content: @escaping () -> Content
-    ) {
-        self._isPresented = isPresented
-        self.dragArea = dragArea
-        self.color = color
-        self.detention = (detention, detention)
-        self.isShowingDragIndicator = isShowDragIndicator
-        self.content = content
-    }
+    private let dragArea: CGFloat
+    private let color: Color
+    private let detention: (min: Detention, max: Detention)
+    private let isShowingDragIndicator: Bool
+    private let content: () -> Content
     
     init(
         isPresented: Binding<Bool>,
@@ -119,7 +54,7 @@ struct BottomSheet<Content: View>: View {
                     .ignoresSafeArea(.all, edges: .bottom)
                     .frame(maxHeight: currentHeight + extraHeight)
                     .overlay {
-                            content()
+                        content()
                             .padding(.top, dragArea)
                     }
                     .offset(y: offsetY)
@@ -199,7 +134,7 @@ struct BottomSheet<Content: View>: View {
         }
         
         if abs(extraHeight) <= minDragDistance && abs(offsetY) <= minDragDistance {
-            withAnimation(.smooth) {
+            withAnimation(.easeInOut) {
                 offsetY = 0
                 extraHeight = 0
             }
@@ -230,34 +165,50 @@ struct BottomSheet<Content: View>: View {
             isPresented = false
         }
     }
-    
 }
-
 
 enum Detention: Hashable, Comparable {
-case medium, large, fraction(Double)
-
-var height: Double {
-    switch self {
-    case .medium:
-        0.5
-    case .large:
-        0.99
-    case .fraction(let double):
-        double
+    case medium, large, fraction(Double)
+    
+    var height: Double {
+        switch self {
+        case .medium:
+            0.5
+        case .large:
+            0.99
+        case .fraction(let value):
+            value
+        }
     }
-}
-
-static func <(lhs: Detention, rhs: Detention) -> Bool {
-    lhs.height < rhs.height
-}
-
-static func >(lhs: Detention, rhs: Detention) -> Bool {
-    lhs.height > rhs.height
-}
+    
+    static func <(lhs: Detention, rhs: Detention) -> Bool {
+        lhs.height < rhs.height
+    }
+    
+    static func >(lhs: Detention, rhs: Detention) -> Bool {
+        lhs.height > rhs.height
+    }
 }
 
 
 #Preview {
-    testSheet()
+    ContentView()
+}
+
+extension View {
+    @ViewBuilder
+    func bottomSheet<Content: View>(
+        isPresented: Binding<Bool>,
+        dragArea: CGFloat = 40,
+        color: Color = .white,
+        minDetention: Detention,
+        maxDetention: Detention,
+        isShowDragIndicator: Bool = true,
+        @ViewBuilder content: @escaping () -> Content
+    ) -> some View {
+        overlay {
+            BottomSheet(isPresented: isPresented, dragArea: dragArea, color: color, minDetention: minDetention, maxDetention: maxDetention, isShowDragIndicator: isShowDragIndicator, content: content)
+        }
+    }
+    
 }

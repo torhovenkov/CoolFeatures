@@ -9,22 +9,29 @@ import SwiftUI
 
 struct ContentView: View {
     @State var isPresented = false
+    @State var isPresented2 = false
     
     var body: some View {
         ZStack {
             ImageBackground()
                
-            MainButton {
-                    isPresented.toggle()
+            VStack(spacing: 30) {
+                MainButton(title: "Simple sheet") {
+                        isPresented.toggle()
+                }
+                
+                MainButton(title: "Resizable Sheet") {
+                    isPresented2.toggle()
+                }
             }
             
         }
-//        .bottomSheet(isPresented: $isPresented, minDetention: .medium, maxDetention: .fraction(0.8)) {
-//            MediumContent()
-//        }
-        .sheet(isPresented: $isPresented, content: {
-            MediumContent()
-        })
+        .customSheet($isPresented) {
+            CustomContent()
+        }
+        .bottomSheet(isPresented: $isPresented2, minDetention: .fraction(0.3), maxDetention: .fraction(0.8)) {
+            SmallContent()
+        }
     }
 }
 

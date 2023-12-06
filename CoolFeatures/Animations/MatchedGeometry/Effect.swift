@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct EffectPreview: View {
-    @State var isPresented = false
+    @State var isCircle = false
     
     var body: some View {
         ZStack {
             ImageBackground()
             
             MainButton {
-                isPresented.toggle()
+                isCircle.toggle()
             }
             
-            Effect(isCircle: $isPresented)
+            Effect(isCircle: $isCircle)
                 .offset(y: 200)
         }
     }
@@ -56,7 +56,7 @@ struct Effect: View {
                     }
                 }
         }
-        .animation(.easeInOut(duration: 2), value: isCircle)
+        .animation(.easeInOut, value: isCircle)
     }
 }
 
